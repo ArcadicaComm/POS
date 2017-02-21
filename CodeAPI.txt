@@ -8,5 +8,5 @@ Combo Item (detail of each combo) : http://webbase.com.vn/pos/combo-api/combo-it
 
 List of tables : http://webbase.com.vn/pos/table-api
 
-list of tables have been set : http://webbase.com.vn/pos/table-api
+list of tables have been set : http://webbase.com.vn/pos/booktable-api
 // When u click to any table, client will be send table_id to server and insert it in to book_table. 
