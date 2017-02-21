@@ -5,3 +5,8 @@ Categories : http://webbase.com.vn/pos/category-api
 Combo List : http://webbase.com.vn/pos/combo-api
 
 Combo Item (detail of each combo) : http://webbase.com.vn/pos/combo-api/combo-item?expand=item
+
+List of tables : http://localhost/yii-chickent/table-api
+
+list of tables have been set : http://localhost/yii-chickent/booktable-api
+// When u click to any table, client will be send table_id to server and insert it in to book_table. 
