@@ -1,3 +1,7 @@
 Products : http://webbase.com.vn/pos/product-api
 
 Categories : http://webbase.com.vn/pos/category-api
+
+Combo List : http://webbase.com.vn/pos/combo-api
+
+Combo Item (detail of each combo) : http://webbase.com.vn/pos/combo-api/combo-item?expand=item
