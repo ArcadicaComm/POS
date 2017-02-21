@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-sm-12" ng-cloak>
-            Price : {{ product.price }}
+            Price : ${{ product.price }}
         </div>
     </div>
 </div>

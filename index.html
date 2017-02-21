@@ -298,6 +298,11 @@
                      <br />
                   </div>
                   <ul id="menu" class="collapse" ng-controller="categoriesController">
+                     <li class="panel active">
+                         <a href="#combo/{{ combo.combo_id }}" ng-cloak>
+                            <i class="icon-table" ng-cloak></i> Combo
+                        </a>                   
+                     </li> 
                      <li class="panel active" ng-repeat="category in categories">
                          <a href="#list_product/{{ category.category_id }}" ng-cloak>
                             <i class="icon-table" ng-cloak></i> {{ category.title }}
