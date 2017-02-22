@@ -40,7 +40,8 @@
             <!--Khai báo thư viện angularjs -->
             <script src="https://code.angularjs.org/1.6.1/angular.min.js"></script>
             <script src="https://code.angularjs.org/1.6.1/angular-route.min.js"></script>
-            <script src="assets/angularjs/app.js"></script>
+            <script src="assets/angularjs/app/app.js"></script>
+            <script src="assets/angularjs/services/base_url.js"></script>
          </head>
          <!-- END HEAD -->
          <!-- BEGIN BODY -->
@@ -55,7 +56,7 @@
                      </a>
                      <!-- LOGO SECTION -->
                      <header class="navbar-header">
-                        <a href="index.html" class="navbar-brand">
+                        <a href="#/" class="navbar-brand">
                         <img src="assets/img/logo.png" alt="" />
                         </a>
                      </header>
@@ -299,12 +300,12 @@
                   </div>
                   <ul id="menu" class="collapse" ng-controller="categoriesController">
                      <li class="panel active">
-                         <a href="#combo/{{ combo.combo_id }}" ng-cloak>
+                         <a href="#/combo/{{ combo.combo_id }}" ng-cloak>
                             <i class="icon-table" ng-cloak></i> Combo
                         </a>                   
                      </li> 
                      <li class="panel active" ng-repeat="category in categories">
-                         <a href="#list_product/{{ category.category_id }}" ng-cloak>
+                         <a href="#/list_product/{{ category.category_id }}" ng-cloak>
                             <i class="icon-table" ng-cloak></i> {{ category.title }}
                         </a>                   
                      </li>
@@ -323,12 +324,13 @@
                      <div class="row">
                         <div class="col-lg-12 col-sm-12">
                            <div class="panel panel-default">
-                              <div class="panel-heading">
-                                 List Product
-                              </div>
-                              <div class="demo-container" ng-view>
-                                 
-                              </div>
+                                <div class="panel-heading">
+                                   List Product
+                                </div>
+                              
+                                <div class="demo-container" ng-view>
+
+                                </div>
                            </div>
                         </div>
                      </div>

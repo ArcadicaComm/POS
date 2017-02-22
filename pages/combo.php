@@ -1,7 +1,7 @@
 <div class="row" ng-repeat="combo in combos" style="margin-top: 10px">
     <div class="col-sm-12">
         <div class="col-sm-2 col-sm-offset-1">
-            <img ng-src="http://webbase.com.vn/pos{{ combo.image }}" width="150px" height="150px"/>
+            <img ng-src="{{ imageUrl }}{{ combo.image }}" width="150px" height="150px"/>
         </div>
 
         <div class="col-sm-9">
