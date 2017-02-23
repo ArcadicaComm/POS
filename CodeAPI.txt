@@ -10,3 +10,13 @@ List of tables : http://webbase.com.vn/pos/table-api
 
 list of tables have been set : http://webbase.com.vn/pos/booktable-api
 // When u click to any table, client will be send table_id to server and insert it in to book_table. 
+
+List of foods by category : http://webbase.com.vn/pos/category-api/food?expand=items
+
+API ShopCard : http://webbase.com.vn/pos/shopcart-api
+
+API Shopcard detail (Join shopcart with Items):  http://webbase.com.vn/pos/shopcart-api/shopcart-item?expand=item
+
+API Change table : http://webbase.com.vn/pos/booktable-api/changetable?old=table_old_id&new=table_new_id
+
+API Cancel table : http://webbase.com.vn/pos/booktable-api/cancel-table?table_id=table_id
