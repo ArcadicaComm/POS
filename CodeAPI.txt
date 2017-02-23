@@ -17,6 +17,6 @@ API ShopCard : http://webbase.com.vn/pos/shopcart-api
 
 API Shopcard detail (Join shopcart with Items):  http://webbase.com.vn/pos/shopcart-api/shopcart-item?expand=item
 
-API Change table : http://webbase.com.vn/pos/booktable-api/changetable?old=table_old_id&new=table_new_id
+API Change table : http://webbase.com.vn/pos/booktable-api/changetable
 
-API Cancel table : http://webbase.com.vn/pos/booktable-api/cancel-table?table_id=table_id
+API Cancel table : http://webbase.com.vn/pos/booktable-api/cancel-table
