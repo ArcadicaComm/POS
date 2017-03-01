@@ -22,3 +22,6 @@ API Change table : http://webbase.com.vn/pos/booktable-api/changetable
 API Cancel table : http://webbase.com.vn/pos/booktable-api/cancel-table
 
 API Add item to Shopcart : http://webbase.com.vn/pos/shopcart-api/add-shopcart
+
+API Delete from ShopCart : http://webbase.com.vn/pos/shopcart-api/remove-shopcart
+//POST['good_id']; 
