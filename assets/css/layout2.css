@@ -21,12 +21,16 @@
   }
 }
 @media (min-width: 1200px) {
-  #left,
-  #right {
-    width: 15%;
+   #left {
+    width: 20% !important;
+   }
+   #right {
+/*    width: 15%;*/
+    width: 30% !important;
   }
   #content {
-    width: 70%;
+/*    width: 70%;*/
+    width : 50% !important;
   }
   .side-right #right {
     float: right;

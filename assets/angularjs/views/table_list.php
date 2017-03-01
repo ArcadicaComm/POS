@@ -8,12 +8,12 @@
         </div>
         
         <div style="text-align: center">
-            <img ng-if="table.hide === undefined" ng-src="{{ imageUrl }}/uploads/table.png" width="68px" height="50px" ng-click="chooseTable(table)"/>
-            <img ng-if="table.hide == 1" ng-src="{{ imageUrl }}/uploads/table.png" width="68px" height="50px" style="opacity : 0.3"/>
+            <img ng-if="table.hide === undefined" ng-src="{{ baseUrl }}/uploads/table.png" width="68px" height="50px" ng-click="chooseTable(table)"/>
+            <img ng-if="table.hide == 1" ng-src="{{ baseUrl }}/uploads/table.png" width="68px" height="50px" style="opacity : 0.3"/>
         </div>
         
         <div style="text-align: center; margin-top: 10px">
-            <input ng-repeat="booktable in booktables" type="submit" class="btn btn-primary" value="Process" ng-if="booktable.status == 1 && booktable.table_id == table.id"/>
+            <input ng-click="pathToListProduct(table)" ng-repeat="booktable in booktables" type="submit" class="btn btn-primary" value="Process" ng-if="booktable.status == 1 && booktable.table_id == table.id"/>
         </div>
     </div>
 </div>
