@@ -1,5 +1,30 @@
 //Controller controls Table list
 posApp.controller('tableController', ['$scope', '$http', '$rootScope', '$location', 'baseUrl', 'checkTable', 'checkFood', function($scope, $http, $rootScope, $location, baseUrl, checkTable, checkFood){
+    //Refresh changeTable when changeTable
+    $scope.$on('change-table', function(){
+        //Get all Table and BookTable from Table API
+        $http.get('http://webbase.com.vn/pos/table-api')
+        .then(function(response){
+            $scope.tables = response.data;
+            $http.get('http://webbase.com.vn/pos/booktable-api')
+            .then(function(response){
+                $scope.booktables = response.data;
+                angular.forEach($scope.tables, function(table_value, table_key){
+                    angular.forEach($scope.booktables, function(btable_value, btable_key){
+                        if(table_value.id == btable_value.table_id)
+                        {
+                            $scope.tables[table_key].hide = 1;
+                        }
+                    })
+                });
+            },function(response){
+
+            })
+        },function(response){
+
+        });  
+    })
+    
     //Set baseUrl by setBaseUrl function in baseUrl service
     $scope.baseUrl = baseUrl.setBaseUrl('http://webbase.com.vn/pos');
     //Function click process link to listProduct (checkTable.status set to 1)
