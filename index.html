@@ -176,7 +176,7 @@
                                 </div>-->
                               
                                 <div ng-view>
-
+                                 
                                 </div>
                            </div>
                         </div>
@@ -193,46 +193,34 @@
                         <li style="text-align: center"><input type="submit" class="btn btn-primary btn-sm" value="Cancel {{ currentTableTitle }}" ng-click="cancelTable(currentTableId)"/></li>
                      </ul>
                   </div>
-                  <div class="well well-small" ng-if="choose_food == 1">
-                      <table class="table table-hover">
+                  <div class="table-responsive" ng-if="choose_food == 1">
+                      <table class="table">
                         <thead>
                             <tr>
-                                <td style="font-weight: bold; text-align: center; padding: 3px !important">Item</td>
-                                <td style="font-weight: bold; text-align: center; padding: 3px !important">Quantity</td>
-                                <td style="font-weight: bold; text-align: right; padding: 3px !important">Price($)</td>
-                                <td style="font-weight: bold; text-align: right; padding: 3px !important">Total($)</td>
+                                <td>Item</td>
+                                <td>Qlt</td>
+                                <td>Price($)</td>
+                                <td>Total($)</td>
                                 <td></td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="shopcart in shopcarts">
-                                <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.item_id != null">{{ shopcart.item.title }}</td>
-                                <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.combo_id != null">{{ shopcart.combo_name }}</td>
-                                <td style="padding: 3px !important; vertical-align: middle"><input style="width: 90% !important" type="number" ng-model="quantity.number" ng-init="quantity.number = getShopcartCount(shopcart); quantity.good_id = getShopcartId(shopcart)" ng-change="getTotal(quantity)"/></td>
-                                <td style="text-align: right; padding: 3px !important; vertical-align: middle">${{ shopcart.price }}</td>
-                                <td style="text-align: right; padding: 3px !important; vertical-align: middle">${{ quantity.number*shopcart.price }}</td>
-                                <td ng-click="removeFood(shopcart)" class="glyphicon glyphicon-trash text-danger" style="vertical-align: middle; font-size: 28px"></td>
+                            <tr ng-repeat="shopcart in shopcarts" class="success">
+                                <td  ng-if="shopcart.item_id != null">{{ shopcart.item.title }}</td>
+                                <td  ng-if="shopcart.combo_id != null">{{ shopcart.combo_name }}</td>
+                                <td><input style="width: 50px" type="number" ng-model="quantity.number" ng-init="quantity.number = getShopcartCount(shopcart); quantity.good_id = getShopcartId(shopcart)" ng-change="getTotal(quantity)"/></td>
+                                <td>${{ shopcart.price }}</td>
+                                <td>${{ quantity.number*shopcart.price }}</td>
+                                <td ng-click="removeFood(shopcart)"><i class="glyphicon glyphicon-trash"></i></td>
                             </tr>
                             
-                            <tr ng-if="total != undefined">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td style="text-align:right"><span style="font-weight: bold">Total :</span> ${{ total }}</td>
-                                <td></td>
-                            </tr>
+                           
                             
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td ng-click="updateShopcart(quantity)"><p class="btn btn-default" style="float:right"><i class="glyphicon glyphicon-refresh">Update</i></p></td>
-                                <td></td>
-                            </tr>
+                           
                         </tbody>
                       </table>
-                      
-                      
+                      Total :</span> ${{ total }}
+                      <button ng-click="updateShopcart(quantity)"><p class="btn btn-default"><i class="glyphicon glyphicon-refresh">Update</i></p></button>
                   </div>
                </div>
                </div>
