@@ -25,3 +25,7 @@ API Add item to Shopcart : http://webbase.com.vn/pos/shopcart-api/add-shopcart
 
 API Delete from ShopCart : http://webbase.com.vn/pos/shopcart-api/remove-shopcart
 //POST['good_id']; 
+
+API Customers : http://webbase.com.vn/pos/customer-api
+//use for all methods : GET, CREATE, UPDATE, DELETE
+// last_name, first_name, tel are requited
