@@ -33,19 +33,23 @@ posApp.controller('tableController', ['$scope', '$http', '$rootScope', '$locatio
         //Set the table is chosen
         checkTable.chooseTable(); //set checkTable.status = 1
         checkTable.setCurrentTable(table.id, table.title); //set checkTable.currentTableID = table.id and currentTableTitle = table.title
-        $rootScope.$broadcast('choose-table');
+        $rootScope.$broadcast('chooseTable');
         //Set the food is chosen
         checkFood.chooseFood();
-        $rootScope.$broadcast('choose-food');
+        $rootScope.$broadcast('chooseFood');
         $location.path('list_product');
     }
     //The table is cancel or not chosen
     $scope.$on('cancel-table', function(){
         $scope.changeTableStatus = checkTable.changeTableStatus;
     })
+    //Check out hide changeTable
+    $scope.$on('checkOut', function(){
+        $scope.changeTableStatus = 0;
+    })
     
     //The table is chosen
-    $scope.$on('choose-table', function(){
+    $scope.$on('chooseTable', function(){
         $scope.changeTableStatus = checkTable.changeTableStatus;
         //Get all Table and BookTable from Table API
         $http.get('http://webbase.com.vn/pos/table-api')
@@ -105,7 +109,7 @@ posApp.controller('tableController', ['$scope', '$http', '$rootScope', '$locatio
         .then(function(response){
             checkTable.chooseTable();
             checkTable.setCurrentTable(table.id, table.title);
-            $rootScope.$broadcast('choose-table');
+            $rootScope.$broadcast('chooseTable');
             $location.path('list_product');
         },function(response){
             console.log(response);

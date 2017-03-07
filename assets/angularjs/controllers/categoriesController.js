@@ -1,7 +1,12 @@
 //Controller controls categories
 posApp.controller('categoriesController', ['$scope', '$http', 'baseUrl', 'checkTable', function($scope, $http, baseUrl, checkTable){
+        //Hide categories when checkout
+        $scope.$on('checkOut', function(){
+            checkTable.status = 0;
+            $scope.menu = checkTable.status;
+        });
     //The table is chosen
-    $scope.$on('choose-table',function(){
+    $scope.$on('chooseTable',function(){
         $scope.menu = checkTable.status;
     });
     //The table is canceled or not chosen

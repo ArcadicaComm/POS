@@ -19,6 +19,22 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
             <![endif]-->
             <!-- GLOBAL STYLES -->
+            <style>
+                #add_customer:hover{
+                    display: block;
+                }
+            </style>
+            <!--Select 2 plugin-->
+            <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+            <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js "></script>
+            <link href="assets/select2/css/select2.css" rel="stylesheet" />
+            <script src="assets/select2/js/select2.js"></script>
+            <!--End select 2 plugin-->
+            
+            <!--Radio button Bootstrap css-->
+            <link href="assets/css/radio_button.css" rel="stylesheet" />
+            <!--End radio button-->
+            
             <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.css" />
             <link rel="stylesheet" href="assets/css/main.css" />
             <link rel="stylesheet" href="assets/css/theme.css" />
@@ -55,7 +71,17 @@
             <script src="assets/angularjs/controllers/comboController.js"></script>
             <script src="assets/angularjs/controllers/tableController.js"></script>
             <script src="assets/angularjs/controllers/shopcartController.js"></script>
+            <script src="assets/angularjs/controllers/deliveryController.js"></script>
+            <script src="assets/angularjs/controllers/checkOutController.js"></script>
+            <script src="assets/angularjs/controllers/customerController.js"></script>
             <!--End controller-->
+            
+            <!--Directives-->
+            <script src="assets/angularjs/directives/select2.js"></script>
+            <!--End directives-->
+            
+            
+            
          </head>
          <!-- END HEAD -->
          <!-- BEGIN BODY -->
@@ -75,34 +101,100 @@
                         </a>
                      </header>
                      <!-- END LOGO SECTION -->
-                     <ul class="nav navbar-top-links navbar-right" ng-controller="tableController">
-                        <!-- MESSAGES SECTION -->
-                        <li class="dropdown" ng-cloak ng-if="changeTableStatus == 1">
-                           <a class="dropdown-toggle" data-toggle="dropdown">
-                           <span class="label label-success">Change Table</span>    <i class="icon-table"></i>&nbsp; <i class="icon-chevron-down"></i>
-                           </a>
-                           <ul class="dropdown-menu dropdown-messages">
-                              <li>
-                                <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" ng-repeat="table in tables" style="margin-top: 30px; height: 90px">
-                                    <div style="text-align: center; font-weight: bold">
-                                        {{ table.title }}
-                                    </div>
+                     <ul class="nav navbar-top-links navbar-right" >
+                        <!-- Change table -->
+                        <li class="dropdown" ng-controller="tableController">
+                            <div ng-cloak ng-if="changeTableStatus == 1"> 
+                                <a style="text-decoration: none" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="label label-success">CHANGE TABLE</span>    <i class="icon-table"></i>&nbsp; <i class="icon-chevron-down"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-messages">
+                                   <li>
+                                     <div class="col-xs-6 col-md-6 col-lg-6 col-sm-6" ng-repeat="table in tables" style="margin-top: 30px; height: 90px">
+                                         <div style="text-align: center; font-weight: bold">
+                                             {{ table.title }}
+                                         </div>
 
-                                    <div style="text-align: center">
-                                        <img ng-if="table.hide === undefined" ng-src="{{ baseUrl }}/uploads/table.png" width="68px" height="50px" ng-click="changeTable(table)"/>
-                                        <img ng-if="table.hide == 1" ng-src="{{ baseUrl }}/uploads/table.png" width="68px" height="50px" style="opacity : 0.3"/>
-                                    </div>
+                                         <div style="text-align: center">
+                                             <img ng-if="table.hide === undefined" ng-src="{{ baseUrl }}/uploads/table.png" width="68px" height="50px" ng-click="changeTable(table)"/>
+                                             <img ng-if="table.hide == 1" ng-src="{{ baseUrl }}/uploads/table.png" width="68px" height="50px" style="opacity : 0.3"/>
+                                         </div>
 
-                                    <div style="text-align: center; margin-top: 10px">
-                                        <input ng-click="pathToListProduct(table)" ng-repeat="booktable in booktables" class="btn btn-primary btn-sm" value="Process" ng-if="booktable.status == 1 && booktable.table_id == table.id" type="submit" />
-                                    </div>
-                                </div>
-                              </li>
-                              <li class="divider"></li>
-                              
-                           </ul>
+                                         <div style="text-align: center; margin-top: 10px">
+                                             <input ng-click="pathToListProduct(table)" ng-repeat="booktable in booktables" class="btn btn-primary btn-sm" value="Process" ng-if="booktable.status == 1 && booktable.table_id == table.id" type="submit" />
+                                         </div>
+                                     </div>
+                                   </li>
+                                   <li class="divider"></li>
+
+                                </ul>
+                            </div>
                         </li>
-                        <!--END MESSAGES SECTION -->
+                        <!--END Change Table -->
+                        
+                        <!-- Add new customer -->
+                        <li class="dropdown" ng-controller="customerController">
+                            <div ng-cloak ng-if="addCustomerStatus !=undefined && addCustomerStatus == 1">
+                                
+                                <a ng-click="showAddCustomer()" style="text-decoration: none" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span class="label label-success">ADD NEW CUSTOMER</span>    <i class="icon-user"></i>&nbsp; <i class="icon-chevron-down"></i>
+                                </a>
+                                <div id='add_customer' ng-style="customerStyle" class="dropdown-menu dropdown-messages">
+                                    <h3 style="font-weight: bold; text-align: center;">ADD NEW CUSTOMER</h3>
+                                    <form>
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12">
+                                            <label class="control-label">First name</label>
+                                            <input type="text" class="form-control" required ng-model="customer.first_name"/>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12">
+                                            <label class="control-label">Last name</label>
+                                            <input type="text" class="form-control" required ng-model="customer.last_name"/>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12" style="height: 70px">
+                                            <div class="funkyradio">
+                                            <h5 class="control-label" style="font-weight: bold">Gender</h5>
+                                                <div class="funkyradio-info col-md-6 col-sm-6 col-xs-6">
+                                                    <input type="radio" name="radio" id="male" value="male" ng-model="gender" ng-change="getGender(gender)"/>
+                                                    <label for="male">Male</label>
+                                                </div>
+
+                                                <div class="funkyradio-info col-md-6 col-sm-6 col-xs-6">
+                                                    <input type="radio" name="radio" id="female" value="female" ng-model="gender" ng-change="getGender(gender)"/>
+                                                    <label for="female">Female</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12">
+                                            <label class="control-label">Telephone number</label>
+                                            <input type="text" class="form-control" required ng-model="customer.tel"/>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12">
+                                            <label class="control-label">Email</label>
+                                            <input type="email" class="form-control" ng-model="customer.email"/>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12">
+                                            <label class="control-label">Address</label>
+                                            <input type="text" class="form-control" ng-model="customer.address"/>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12">
+                                            <label class="control-label">Discount percent</label>
+                                            <input type="text" class="form-control" ng-model="customer.discount_percent"/>
+                                        </div>
+
+                                        <div class="form-group col-md-12 col-xs-12 col-sm-12">
+                                            <input type="submit" class="btn btn-primary" style="float:right" value='Add customer' ng-click="addCustomer()"/>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        <!--END add new customer -->
                         
                         <!--ADMIN SETTINGS SECTIONS -->
                         <li class="dropdown">
@@ -232,7 +324,10 @@
                         </tbody>
                       </table>
                       
-                      
+                      <!--Buttton sent to kitchen and checkout-->
+                      <button class="btn btn-default col-md-12 col-sm-12 col-xs-12">Send to kitchen</button>
+                      <button style="margin-top: 10px" class="btn btn-default col-md-12 col-sm-12 col-xs-12" ng-click="checkOut()">Check out</button>
+                      <!--End button checkout-->
                   </div>
                </div>
                </div>
@@ -241,19 +336,19 @@
             <!--END MAIN WRAPPER -->
             <!-- FOOTER -->
             <div id="footer">
-               <p>&copy;  binarytheme &nbsp;2014 &nbsp;</p>
+               <p>&copy;  ARCADIA-POS &nbsp;2017 &nbsp;</p>
             </div>
             <!--END FOOTER -->
             <!-- GLOBAL SCRIPTS -->
-            <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+            
             <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
             <script src="assets/plugins/modernizr-2.6.2-respond-1.1.0.min.js"></script>
             <!-- END GLOBAL SCRIPTS -->
             <!-- PAGE LEVEL SCRIPTS -->
-            <script src="assets/plugins/flot/jquery.flot.js"></script>
+<!--            <script src="assets/plugins/flot/jquery.flot.js"></script>
             <script src="assets/plugins/flot/jquery.flot.resize.js"></script>
             <script src="assets/plugins/flot/jquery.flot.time.js"></script>
-            <script  src="assets/plugins/flot/jquery.flot.stack.js"></script>
+            <script  src="assets/plugins/flot/jquery.flot.stack.js"></script>-->
             <script src="assets/js/for_index.js"></script>
             <!-- END PAGE LEVEL SCRIPTS -->
          </body>

@@ -1,0 +1,81 @@
+<style>
+@media (min-width: 1200px)
+{
+    #content {
+        width: 80% !important;
+     }
+}
+</style>
+
+<h3>Check out {{ currentTableTitle }}</h3>
+<div class="row">
+    <!--Shopcart-->
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <td style="font-weight: bold; text-align: center; padding: 3px !important">Item</td>
+                    <td style="font-weight: bold; text-align: center; padding: 3px !important">Quantity</td>
+                    <td style="font-weight: bold; text-align: right; padding: 3px !important; width:60px">Price($)</td>
+                    <td style="font-weight: bold; text-align: right; padding: 3px !important">Total($)</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="shopcart in scarts">
+                    <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.item_id != null">{{ shopcart.item.title }}</td>
+                    <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.combo_id != null">{{ shopcart.combo_name }}</td>
+                    <td style="padding: 3px !important; vertical-align: middle">{{ shopcart.count }}</td>
+                    <td style="text-align: right; padding: 3px !important; vertical-align: middle">${{ shopcart.price }}</td>
+                    <td ng-init="$parent.total = $parent.total + (shopcart.price*shopcart.count)" style="text-align: right; padding: 3px !important; vertical-align: middle">${{ shopcart.count*shopcart.price }}</td>
+                    <td ng-click="removeFood(shopcart)" class="glyphicon glyphicon-trash text-danger" style="vertical-align: middle; font-size: 28px"></td>
+                </tr>
+
+                <tr ng-if="total != undefined">
+                    <td></td>
+                    <td></td>
+                    <td><span style="font-weight: bold">Total :</span> </td>
+                    <td style="text-align:right">${{ total }}</td>
+                    <td></td>
+                </tr>
+            </tbody>
+          </table>
+    </div>
+    <!--End shopcart-->
+    
+    <!--Check out infomartion-->
+    
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <h4 class="control-label" style="font-weight: bold">Customer name</h4>
+            <select select2 class="form-control col-md-7 col-xs-12" id="State" name="State" ng-model="SelectedItem" ng-options="customers.Id as customers.Value for customers in ItemList">
+                <option value="">Select customer</option>
+            </select>
+        </div>
+        
+        <div class="col-md-12 col-sm-12 col-xs-12" ng-style="myStyle">
+            <div class="funkyradio">
+                <h4 class="control-label" style="font-weight: bold">Payment method</h4>
+                <div class="funkyradio-info col-md-4 col-sm-4 col-xs-4" ng-repeat="paymentMethod in paymentMethods">
+                    <input type="radio" name="radio" id="{{paymentMethod.id}}" ng-model="$parent.value" ng-change="getPaymentMethod(value)" value="{{paymentMethod.id}}"/>
+                    <label for="{{paymentMethod.id}}">{{paymentMethod.value}}</label>
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 10px 0px 10px 20px; width: 250%" ng-show="showCash != undefined && showCash == 1 && paymentMethod.id == 'cash'">
+                        <h4 class="control-label" style="font-weight: bold">Received</h4>
+                        <input type="text" class="form-control" placeholder="Enter cash received from customer..."/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <h4 class="control-label" style="font-weight: bold">Comment</h4>
+            <textarea rows="2" class="form-control"></textarea>
+        </div>
+        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
+            <button ng-click="payment()" class="btn btn-primary" style="float: right">Payment</button>
+        </div>    
+        
+    </div>
+    <!--End check out information-->
+</div>

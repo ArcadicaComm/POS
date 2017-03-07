@@ -35,7 +35,7 @@ posApp.controller('comboController', ['$scope', '$http', '$rootScope', 'baseUrl'
         }).then(function(response){
              //Confirm Choose food
             checkFood.chooseFood();
-            $rootScope.$broadcast('choose-food');
+            $rootScope.$broadcast('chooseFood');
         },function(response){
             console.log(response);
         });

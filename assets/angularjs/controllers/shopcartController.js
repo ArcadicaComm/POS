@@ -2,6 +2,12 @@
 posApp.controller('shopcartController', ['$scope', '$http', '$location', '$rootScope', 'baseUrl', 'checkTable', 'checkFood', 'shopCart', function($scope, $http, $location, $rootScope, baseUrl, checkTable, checkFood, shopCart){
         //Set base Url
         $scope.baseUrl = baseUrl.setBaseUrl('http://webbase.com.vn/pos');
+        //Hide shopcart when checkout
+        $scope.$on('checkOut', function(){
+            checkTable.status = 0;
+            $scope.menu = checkTable.status;
+        });
+        
         //The table is canceled or not chosen
         $scope.$on('cancel-table', function(){
             $scope.changeTableStatus = checkTable.changeTableStatus;
@@ -10,7 +16,7 @@ posApp.controller('shopcartController', ['$scope', '$http', '$location', '$rootS
         });
         
         //The table is chosen
-        $scope.$on('choose-table', function(){
+        $scope.$on('chooseTable', function(){
             $scope.menu = checkTable.status;
             $scope.currentTableId   =   checkTable.currentTableId;
             $scope.currentTableTitle=   checkTable.currentTableTitle;
@@ -36,7 +42,7 @@ posApp.controller('shopcartController', ['$scope', '$http', '$location', '$rootS
             }
         });
         
-        $scope.$on('choose-food', function(){
+        $scope.$on('chooseFood', function(){
             $scope.total = 0;
             $scope.choose_food = checkFood.status;
             $scope.currentTableId = checkTable.currentTableId;
@@ -162,9 +168,16 @@ posApp.controller('shopcartController', ['$scope', '$http', '$location', '$rootS
             }
         }).then(function(response){
             checkFood.chooseFood();
-            $rootScope.$broadcast('choose-food');
+            $rootScope.$broadcast('chooseFood');
         },function(response){
             console.log(response);
         })
+    }
+    
+    //Function checkOut
+    $scope.checkOut = function()
+    {
+        $rootScope.$broadcast('checkOut');
+        $location.path('/check_out');
     }
 }])

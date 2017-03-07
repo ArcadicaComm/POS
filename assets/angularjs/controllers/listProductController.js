@@ -29,7 +29,7 @@ posApp.controller('listProductController', ['$scope', '$http', '$rootScope', '$r
         }).then(function(response){
             //Confirm Choose food
             checkFood.chooseFood();
-            $rootScope.$broadcast('choose-food');
+            $rootScope.$broadcast('chooseFood');
         },function(response){
             
         })

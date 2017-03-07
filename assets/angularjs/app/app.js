@@ -17,6 +17,10 @@ posApp.config(function($locationProvider, $routeProvider){
     }).when('/takeaway', {
         templateUrl : 'assets/angularjs/views/takeaway.php'
     }).when('/delivery', {
-        templateUrl : 'assets/angularjs/views/delivery.php'
+        templateUrl : 'assets/angularjs/views/delivery.php',
+        controller  : 'deliveryController'
+    }).when('/check_out', {
+        templateUrl : 'assets/angularjs/views/check_out.html',
+        controller  : 'checkOutController'
     })
 })
