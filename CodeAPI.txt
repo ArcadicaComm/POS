@@ -29,3 +29,15 @@ API Delete from ShopCart : http://webbase.com.vn/pos/shopcart-api/remove-shopcar
 API Customers : http://webbase.com.vn/pos/customer-api
 //use for all methods : GET, CREATE, UPDATE, DELETE
 // last_name, first_name, tel are requited
+
+API Get Payment method : http://webbase.com.vn/pos/payment-api
+
+API SALE(get all sales) :  http://webbase.com.vn/pos/sale-api
+API GET SALE_ID : http://webbase.com.vn/pos/sale-api/get-saleid?table_id=14&token_id=123
+// Viet them ham get sale_id theo table_id & token_id
+
+API SALE_ITEM : http://webbase.com.vn/pos/sale-item-api
+
+API GET INVOICE : http://webbase.com.vn/pos/finish-api/invoice/72
+API FINISH (delete in book_table and shopcart_goods): http://webbase.com.vn/pos/finish-api/end/table_id
+// Use method : GET
