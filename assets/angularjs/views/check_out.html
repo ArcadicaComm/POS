@@ -23,8 +23,8 @@
             </thead>
             <tbody>
                 <tr ng-repeat="shopcart in scarts">
-                    <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.item_id != null">{{ shopcart.item.title }}</td>
-                    <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.combo_id != null">{{ shopcart.combo_name }}</td>
+                    <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.item_id != 0">{{ shopcart.item.title }}</td>
+                    <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.combo_id != 0">{{ shopcart.combo_name }}</td>
                     <td style="padding: 3px !important; vertical-align: middle">{{ shopcart.count }}</td>
                     <td style="text-align: right; padding: 3px !important; vertical-align: middle">${{ shopcart.price }}</td>
                     <td ng-init="$parent.total = $parent.total + (shopcart.price*shopcart.count)" style="text-align: right; padding: 3px !important; vertical-align: middle">${{ shopcart.count*shopcart.price }}</td>
@@ -45,7 +45,8 @@
     
     <!--Check out infomartion-->
     
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <form>
+        <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <h4 class="control-label" style="font-weight: bold">Customer name</h4>
             <select select2 class="form-control col-md-7 col-xs-12" id="State" name="State" ng-model="SelectedItem" ng-options="customers.Id as customers.Value for customers in ItemList">
@@ -58,11 +59,11 @@
                 <h4 class="control-label" style="font-weight: bold">Payment method</h4>
                 <div class="funkyradio-info col-md-4 col-sm-4 col-xs-4" ng-repeat="paymentMethod in paymentMethods">
                     <input type="radio" name="radio" id="{{paymentMethod.id}}" ng-model="$parent.value" ng-change="getPaymentMethod(value)" value="{{paymentMethod.id}}"/>
-                    <label for="{{paymentMethod.id}}">{{paymentMethod.value}}</label>
+                    <label for="{{paymentMethod.id}}">{{paymentMethod.title}}</label>
                     
-                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 10px 0px 10px 20px; width: 250%" ng-show="showCash != undefined && showCash == 1 && paymentMethod.id == 'cash'">
+                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin: 10px 0px 10px 20px; width: 250%" ng-show="showCash != undefined && showCash == 1 && paymentMethod.title == 'Cash'">
                         <h4 class="control-label" style="font-weight: bold">Received</h4>
-                        <input type="text" class="form-control" placeholder="Enter cash received from customer..."/>
+                        <input ng-change="getReceived(received)" ng-model="received" class="form-control" placeholder="Enter cash received from customer..." />
                     </div>
                 </div>
             </div>
@@ -70,12 +71,13 @@
         
         <div class="col-md-12 col-sm-12 col-xs-12">
             <h4 class="control-label" style="font-weight: bold">Comment</h4>
-            <textarea rows="2" class="form-control"></textarea>
+            <textarea rows="2" class="form-control" ng-model="comment"></textarea>
         </div>
         <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top: 10px">
-            <button ng-click="payment()" class="btn btn-primary" style="float: right">Payment</button>
+            <input type="submit" ng-click="payment()" class="btn btn-primary" style="float: right" value="Payment" />
         </div>    
         
     </div>
+    </form>
     <!--End check out information-->
 </div>

@@ -151,7 +151,11 @@ posApp.controller('shopcartController', ['$scope', '$http', '$location', '$rootS
                 'Content-Type' : undefined
             }
         }).then(function(response){
-            alert('Update successfull!');
+            swal({
+                title: "Successfull!",
+                text: "Update successfull",
+                type: "success",
+            });    
         },function(response){
             console.log(response);
         })

@@ -24,10 +24,17 @@
                     display: block;
                 }
             </style>
+            
+            <!--Sweet alert plugin-->
+            <link href="assets/sweet_alert/dist/sweetalert.css" rel="stylesheet" type="text/css"/>
+            <script src="assets/sweet_alert/dist/sweetalert.min.js"></script>
+            <!--End sweet alert-->
+            
             <!--Select 2 plugin-->
-            <script src="assets/plugins/jquery-2.0.3.min.js"></script>
+<!--            <script src="assets/plugins/jquery-2.0.3.min.js"></script>-->
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js "></script>
-            <link href="assets/select2/css/select2.css" rel="stylesheet" />
+            <link href="assets/select2/css/select2.css" rel="stylesheet" type="text/css"/>
             <script src="assets/select2/js/select2.js"></script>
             <!--End select 2 plugin-->
             
@@ -64,6 +71,7 @@
             <script src="assets/angularjs/services/check_table.js"></script>
             <script src="assets/angularjs/services/check_food.js"></script>
             <script src="assets/angularjs/services/shop_cart.js"></script>
+            <script src="assets/angularjs/services/sale.js"></script>
             <!--End service-->
             <!--Controller Angularjs-->
             <script src="assets/angularjs/controllers/categoriesController.js"></script>
@@ -74,6 +82,7 @@
             <script src="assets/angularjs/controllers/deliveryController.js"></script>
             <script src="assets/angularjs/controllers/checkOutController.js"></script>
             <script src="assets/angularjs/controllers/customerController.js"></script>
+            <script src="assets/angularjs/controllers/invoiceController.js"></script>
             <!--End controller-->
             
             <!--Directives-->
@@ -267,8 +276,8 @@
                                    List Product
                                 </div>-->
                               
-                                <div class="demo-container" ng-view>
-
+                                <div ng-view>
+                                 
                                 </div>
                            </div>
                         </div>
@@ -285,42 +294,30 @@
                         <li style="text-align: center"><input type="submit" class="btn btn-primary btn-sm" value="Cancel {{ currentTableTitle }}" ng-click="cancelTable(currentTableId)"/></li>
                      </ul>
                   </div>
-                  <div class="well well-small" ng-if="choose_food == 1">
-                      <table class="table table-hover">
+                  <div class="table-responsive" ng-if="choose_food == 1">
+                      <table class="table">
                         <thead>
                             <tr>
-                                <td style="font-weight: bold; text-align: center; padding: 3px !important">Item</td>
-                                <td style="font-weight: bold; text-align: center; padding: 3px !important">Quantity</td>
-                                <td style="font-weight: bold; text-align: right; padding: 3px !important">Price($)</td>
-                                <td style="font-weight: bold; text-align: right; padding: 3px !important">Total($)</td>
+                                <td>Item</td>
+                                <td>Qlt</td>
+                                <td>Price($)</td>
+                                <td>Total($)</td>
                                 <td></td>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="shopcart in shopcarts">
-                                <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.item_id != null">{{ shopcart.item.title }}</td>
-                                <td style="padding: 3px !important; font-weight: bold; vertical-align: middle" ng-if="shopcart.combo_id != null">{{ shopcart.combo_name }}</td>
-                                <td style="padding: 3px !important; vertical-align: middle"><input style="width: 90% !important" type="number" ng-model="quantity.number" ng-init="quantity.number = getShopcartCount(shopcart); quantity.good_id = getShopcartId(shopcart)" ng-change="getTotal(quantity)"/></td>
-                                <td style="text-align: right; padding: 3px !important; vertical-align: middle">${{ shopcart.price }}</td>
-                                <td style="text-align: right; padding: 3px !important; vertical-align: middle">${{ quantity.number*shopcart.price }}</td>
-                                <td ng-click="removeFood(shopcart)" class="glyphicon glyphicon-trash text-danger" style="vertical-align: middle; font-size: 28px"></td>
+                            <tr ng-repeat="shopcart in shopcarts" class="success">
+                                <td  ng-if="shopcart.item_id != 0">{{ shopcart.item.title }}</td>
+                                <td  ng-if="shopcart.combo_id != 0">{{ shopcart.combo_name }}</td>
+                                <td><input style="width: 50px" type="number" ng-model="quantity.number" ng-init="quantity.number = getShopcartCount(shopcart); quantity.good_id = getShopcartId(shopcart)" ng-change="getTotal(quantity)"/></td>
+                                <td>${{ shopcart.price }}</td>
+                                <td>${{ quantity.number*shopcart.price }}</td>
+                                <td ng-click="removeFood(shopcart)"><i class="glyphicon glyphicon-trash"></i></td>
                             </tr>
                             
-                            <tr ng-if="total != undefined">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td style="text-align:right"><span style="font-weight: bold">Total :</span> ${{ total }}</td>
-                                <td></td>
-                            </tr>
+                           
                             
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td ng-click="updateShopcart(quantity)"><p class="btn btn-default" style="float:right"><i class="glyphicon glyphicon-refresh">Update</i></p></td>
-                                <td></td>
-                            </tr>
+                           
                         </tbody>
                       </table>
                       
@@ -328,6 +325,8 @@
                       <button class="btn btn-default col-md-12 col-sm-12 col-xs-12">Send to kitchen</button>
                       <button style="margin-top: 10px" class="btn btn-default col-md-12 col-sm-12 col-xs-12" ng-click="checkOut()">Check out</button>
                       <!--End button checkout-->
+                      <span>Total :</span> ${{ total }}
+                      <button class="btn btn-default" ng-click="updateShopcart(quantity)"><i class="glyphicon glyphicon-refresh">Update</i></button>
                   </div>
                </div>
                </div>

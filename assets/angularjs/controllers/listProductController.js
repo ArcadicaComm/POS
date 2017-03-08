@@ -14,9 +14,10 @@ posApp.controller('listProductController', ['$scope', '$http', '$rootScope', '$r
     $scope.currentTableId = checkTable.currentTableId;
     $scope.addToShopCart = function(product)
     {
+        $scope.item_id = product.item_id;
         var fd = new FormData();
         fd.append('order_id', 1);
-        fd.append('item_id', product.item_id);
+        fd.append('item_id', $scope.item_id);
         fd.append('table_id', $scope.currentTableId);
         fd.append('count', 1);
         fd.append('discount', product.discount);

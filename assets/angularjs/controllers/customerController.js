@@ -23,15 +23,20 @@ posApp.controller('customerController', ['$scope', '$http', '$route', function($
                     });
                     if(customer_count > 0)
                     {
-                        alert('Customer is exit!');
+                        swal({
+                            title: 'Customer is exit!',
+                            text: '',
+                            type: "error",
+                        });
                         $scope.newStyle = {
                             display : 'none'
                         };
                         $scope.customerStyle = angular.extend($scope.customerStyle, $scope.newStyle);
                         $scope.customer = {};
                         $route.reload();
-                    }else if(customer_count ==0)
+                    }else if(customer_count == 0)
                     {
+                        console.log($scope.customer.discount_percent);
                         var fd = new FormData();
                         fd.append('first_name', $scope.customer.first_name);
                         fd.append('last_name', $scope.customer.last_name);
@@ -39,22 +44,32 @@ posApp.controller('customerController', ['$scope', '$http', '$route', function($
                         if($scope.customer.email != undefined)
                         {
                             fd.append('email', $scope.customer.email);
-                        }else if($scope.customer.address != undefined)
+                        }
+                        if($scope.customer.address != undefined)
                         {
                             fd.append('address', $scope.customer.address);
-                        }else if($scope.customer.gender != undefined)
+                        }
+                        if($scope.customer.gender != undefined)
                         {
                             fd.append('gender', $scope.customer.gender);
-                        }else if($scope.customer.discount_percent != undefined)
+                        }
+                        if($scope.customer.discount_percent != undefined)
                         {
                             fd.append('discount_percent', $scope.customer.discount_percent);
+                        }else
+                        {
+                            fd.append('discount_percent', 0);
                         }
                         $http.post('http://webbase.com.vn/pos/customer-api', fd, {
                             headers : {
                                 'Content-Type' : undefined
                             }
                         }).then(function(response){
-                            alert('Add new customer successfull!');
+                            swal({
+                                title: 'Add new customer successfull!',
+                                text: '',
+                                type: "success",
+                            });
                             $scope.newStyle = {
                                 display : 'none'
                             };
@@ -76,5 +91,8 @@ posApp.controller('customerController', ['$scope', '$http', '$route', function($
                 width : '350px'
             }
         };
+    })
+    $scope.$on('checkPayment', function(){
+        $scope.addCustomerStatus = 0;
     })
 }])
